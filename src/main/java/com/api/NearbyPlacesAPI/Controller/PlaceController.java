@@ -25,9 +25,9 @@ public class PlaceController {
 
     @GetMapping("/nearby")
     public ResponseEntity<List<Place>> getNearbyPlaces(
-            @RequestParam String longitude,
-            @RequestParam String latitude,
-            @RequestParam String radius) {
+            @RequestParam Double longitude,
+            @RequestParam Double latitude,
+            @RequestParam Double radius) {
         List<Place> nearbyPlaces = placeService.getNearbyPlaces(longitude, latitude, radius);
         return ResponseEntity.ok(nearbyPlaces);
     }
