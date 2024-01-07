@@ -14,7 +14,7 @@ import com.api.NearbyPlacesAPI.Service.PlaceService;
 
 
 @RestController
-@RequestMapping("/nearby-places")
+@RequestMapping("/api/places")
 public class PlaceController {
     private final PlaceService placeService;
 
