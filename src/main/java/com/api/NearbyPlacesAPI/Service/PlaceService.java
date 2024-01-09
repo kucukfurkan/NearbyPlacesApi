@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -36,10 +37,9 @@ public class PlaceService {
      this.placeRepository = placeRepository;
  }
 
+ @Cacheable(value = "placesCache", key = "#longitude + '_' + #latitude + '_' + #radius")
  public List<Place> getNearbyPlaces(Double longitude, Double latitude, Double radius) {
-
      List<Place> googlePlacesResponse = getPlacesFromGoogleAPI(longitude, latitude, radius);
-
      return googlePlacesResponse;
  }
 
