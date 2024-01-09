@@ -39,7 +39,17 @@ public class PlaceService {
 
  @Cacheable(value = "placesCache", key = "#longitude + '_' + #latitude + '_' + #radius")
  public List<Place> getNearbyPlaces(Double longitude, Double latitude, Double radius) {
+
+     List<Place> existingPlaces = placeRepository.findByLongitudeAndLatitudeAndRadius(longitude, latitude, radius);
+
+     if (!existingPlaces.isEmpty()) {
+         return existingPlaces;
+     }
+
      List<Place> googlePlacesResponse = getPlacesFromGoogleAPI(longitude, latitude, radius);
+
+     placeRepository.saveAll(googlePlacesResponse);
+
      return googlePlacesResponse;
  }
 
